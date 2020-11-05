@@ -10,6 +10,8 @@ export const Form = () => {
     symptoms: ''
   })
 
+  const [ error, updateError ] = useState(false)
+
   const updateState = (e) => {
     updateAppointment({
       ...appointment,
@@ -21,12 +23,41 @@ export const Form = () => {
 
   const submitAppointment = (e) => {
     e.preventDefault()
+
+    if (petName.trim() === '') {
+      // console.log('add pets name')
+      updateError(true)
+      return
+    }
+    if (owner.trim() === '') {
+      // console.log('add owner name')
+      updateError(true)
+      return
+    }
+    if (date.trim() === '') {
+      // console.log('plesase add a date')
+      updateError(true)
+      return
+    }
+    if (hour.trim() === '') {
+      // console.log('plesase add hour')
+      updateError(true)
+      return
+    }
+    if (symptoms.trim() === '') {
+      // console.log('plesase add symptoms description')
+      updateError(true)
+      return
+    }
     console.log('sending form')
   }
 
   return (
     <>
       <h2>add appointment</h2>
+
+      {error ? <p className="alerta-error">All the fields are mandatory</p> : null }
+
       <form
         onSubmit={ submitAppointment }
       >
