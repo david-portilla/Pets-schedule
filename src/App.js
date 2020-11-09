@@ -1,10 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Appointment from './components/Appointment';
 import { Form } from './components/Form';
 
 function App () {
+  // reading appointments from local storage
+  let initialAppointments = JSON.parse(localStorage.getItem('appointments'))
+  if (!initialAppointments) {
+    initialAppointments = []
+  }
+  // set state
+  const [ appointments, saveAppointment ] = useState(initialAppointments)
 
-  const [ appointments, saveAppointment ] = useState([])
+  // listening changes on state using useEffect
+  useEffect(() => {
+    if (initialAppointments) {
+      localStorage.setItem('appointments', JSON.stringify(appointments))
+    } else {
+      localStorage.setItem('appointments', JSON.stringify([]))
+    }
+  }, [ appointments ])
+
+  // adding new appointment
   const createAppointment = appointment => {
     saveAppointment([
       ...appointments,
