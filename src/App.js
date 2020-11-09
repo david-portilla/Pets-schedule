@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
+import Appointment from './components/Appointment';
 import { Form } from './components/Form';
 
 function App () {
 
   const [ appointments, saveAppointment ] = useState([])
-
   const createAppointment = appointment => {
-    console.log(appointment)
     saveAppointment([
       ...appointments,
       appointment
@@ -18,15 +17,23 @@ function App () {
       <h1>Pets-schedule</h1>
       <div className="container">
         <div className="row">
+
           <div className="one-half column">
             <Form
               createAppointment={ createAppointment }
-
             />
           </div>
+
           <div className="one-half column">
-            col2
-        </div>
+            <h2>Manage your dates</h2>
+            { appointments.map(appointment => (
+              <Appointment
+                key={ appointment.id }
+                appointment={ appointment }
+              />
+            ))
+            }
+          </div>
         </div>
       </div>
     </>
