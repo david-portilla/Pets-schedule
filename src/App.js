@@ -31,7 +31,7 @@ function App () {
           </div>
 
           <div className="one-half column">
-            <h2>Manage your dates</h2>
+            { appointments.length > 0 ? <h2>Manage your dates</h2> : <h2>Add a new appointment</h2> }
             { appointments.map(appointment => (
               <Appointment
                 key={ appointment.id }
