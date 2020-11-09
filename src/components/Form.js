@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import uuid from "uuid/v4";
 
-export const Form = () => {
+export const Form = ({ createAppointment }) => {
 
   const [ appointment, updateAppointment ] = useState({
     petName: '',
@@ -23,33 +24,25 @@ export const Form = () => {
 
   const submitAppointment = (e) => {
     e.preventDefault()
-
-    if (petName.trim() === '') {
-      // console.log('add pets name')
+    // validate empty fields
+    if (petName.trim() === '' || owner.trim() === '' || date.trim() === '' || hour.trim() === '' || symptoms.trim() === '') {
       updateError(true)
       return
     }
-    if (owner.trim() === '') {
-      // console.log('add owner name')
-      updateError(true)
-      return
-    }
-    if (date.trim() === '') {
-      // console.log('plesase add a date')
-      updateError(true)
-      return
-    }
-    if (hour.trim() === '') {
-      // console.log('plesase add hour')
-      updateError(true)
-      return
-    }
-    if (symptoms.trim() === '') {
-      // console.log('plesase add symptoms description')
-      updateError(true)
-      return
-    }
-    console.log('sending form')
+    // remove error msg
+    updateError(false)
+    // add unique ID to each appointment
+    appointment.id = uuid()
+    // send appointment data object
+    createAppointment(appointment)
+    // reset form with empty state
+    updateAppointment({
+      petName: '',
+      owner: '',
+      date: '',
+      hour: '',
+      symptoms: ''
+    })
   }
 
   return (
