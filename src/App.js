@@ -12,6 +12,12 @@ function App () {
     ])
   }
 
+  // remove appointments by id
+  const removeAppointment = id => {
+    const newAppointments = appointments.filter(appointment => appointment.id !== id)
+    saveAppointment(newAppointments)
+  }
+
   return (
     <>
       <h1>Pets-schedule</h1>
@@ -30,6 +36,7 @@ function App () {
               <Appointment
                 key={ appointment.id }
                 appointment={ appointment }
+                removeAppointment={ removeAppointment }
               />
             ))
             }
